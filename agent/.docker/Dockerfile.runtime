@@ -1,0 +1,16 @@
+FROM debian:bookworm-slim
+
+RUN useradd -m -s /bin/false agentuser
+
+WORKDIR /opt/agent
+
+COPY dist/agent /opt/agent/agent
+
+RUN chown agentuser:agentuser /opt/agent/agent \
+    && chmod +x /opt/agent/agent
+
+USER agentuser
+
+ENTRYPOINT ["/opt/agent/agent"]
+
+CMD ["--once"]
