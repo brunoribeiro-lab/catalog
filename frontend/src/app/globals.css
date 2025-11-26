@@ -24,3 +24,35 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.login-background{
+  --bs-heading-color: #e6ecf0;
+  --bs-body-color: #d3d7dc;
+  --bs-body-bg: #0f1535;
+  --bs-body-bg-2: #181f4a;
+  --bs-transparent-bg: rgba(255, 255, 255, 0.1);
+  --bs-border-color-translucent: rgba(226, 232, 240, 0.15);
+  --bs-border-color: rgba(255, 255, 255, 0.15);
+  --sticky-header-bg: rgba(255, 255, 255, 0.45);
+  --bs-disabled-bg: #4b5481;
+  --bs-tertiary-bg: #181f4a;
+  --bs-card-bg: #070c29;
+  background-image: url("/body-background.webp");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg-2);
+}
+
+.border-gradient-1{
+  border-image: linear-gradient(to right, #7928ca, #ff0080, #04e09a, #e0d504) 1;
+}
+
+.card-login{
+  background-image: linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.49) 76.65%);
+}
+.border-card-login-top {
+	border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
