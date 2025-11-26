@@ -1,4 +1,5 @@
-import { Icon, IconProps } from "./Icon";
+import { Icon } from "./Icon";
+import { IconProps } from "@/types/icon";
 
 export const Google = (props: IconProps) => (
   <Icon {...props}>

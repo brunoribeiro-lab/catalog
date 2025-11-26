@@ -1,0 +1,27 @@
+{
+  "common": {
+    "welcome": "Vindo Vindo ao Devobs"
+  },
+  "login": {
+    "getStarted": "Comece Agora",
+    "enterCredentials": "Insira suas credenciais para entrar na sua conta",
+    "email": "Email",
+    "emailPlaceholder": "joão@example.com",
+    "password": "Senha",
+    "passwordPlaceholder": "Digite sua senha",
+    "forgotPassword": "Esqueceu a Senha?",
+    "loginButton": "Entrar",
+    "signingIn": "Entrando...",
+    "dontHaveAccount": "Ainda não tem uma conta?",
+    "signUpHere": "Inscreva-se aqui",
+    "orSignInWith": "OU ENTRE COM"
+  },
+  "errors": {
+    "emailRequired": "Email é obrigatório",
+    "invalidEmail": "Email inválido",
+    "passwordRequired": "Senha é obrigatória",
+    "passwordMinLength": "Senha deve ter pelo menos 6 caracteres",
+    "loginError": "Erro no login",
+    "connectionError": "Erro de conexão"
+  }
+}

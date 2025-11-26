@@ -1,17 +1,16 @@
 'use client';
 
-import { useRouter, usePathname } from '../../i18n/routing';
 import { useLocale } from 'next-intl';
 import { useState, useTransition, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { setUserLocale } from '@/services/locale';
+import { Locale } from '@/i18n/config';
+import { languages } from '@/constants/languages';
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
-  const pathname = usePathname();
   const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-
   const [selectedLocale, setSelectedLocale] = useState(locale);
 
   const switchLocale = (newLocale: string) => {
@@ -19,10 +18,9 @@ export default function LanguageSwitcher() {
 
     setSelectedLocale(newLocale);
     setIsOpen(false);
-
     startTransition(() => {
-      router.push(pathname, { locale: newLocale });
-      window.location.reload();
+      const locale = newLocale as Locale;
+      setUserLocale(locale);
     });
   };
 
@@ -38,12 +36,6 @@ export default function LanguageSwitcher() {
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [isOpen]);
-
-  const languages = [
-    { code: 'en', label: 'English', flag: '🇺🇸' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-    { code: 'pt', label: 'Português', flag: '🇧🇷' },
-  ];
 
   const currentLanguage = languages.find((lang) => lang.code === selectedLocale) ?? languages[1];
   return (
