@@ -67,13 +67,13 @@ export default function Home() {
   return (
     <div className="login-background">
       <div className="min-h-screen border-gradient-1 flex items-center justify-center p-4">
-        <div className="max-w-xl w-full card-login rounded-2xl shadow-lg overflow-visible border-t-4 border-blue-500">
-          <div className="flex">
-            <div className="p-8 pt-4 flex-1">
+        <div className="max-w-xl w-full card-login rounded-2xl shadow-lg overflow-visible border-t-4 border-blue-500 relative">
+          <div className="flex justify-between items-start p-4 pb-0">
+            <div className="p-4 pt-2 flex-1">
               <h4 className="text-2xl font-bold text-gray-400">{t("login.getStarted")}</h4>
               <p className="text-gray-300 mt-2">{t("login.enterCredentials")}</p>
             </div>
-           <div className="flex justify-end p-4 overflow-visible">
+            <div className="p-4 pt-2">
               <LanguageSwitcher />
             </div>
           </div>
