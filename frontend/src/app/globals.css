@@ -61,3 +61,16 @@ aside .nav-link.active, aside .nav-link:hover {
   background-color: #1b203f;
   color: #ffffff;
 }
+body footer {
+	background-color: #070c29;
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  position: absolute;
+  left: 220px;
+  right: 0;
+  bottom: 0;
+  transition: ease-out 0.3s;
+}
