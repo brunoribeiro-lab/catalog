@@ -61,7 +61,8 @@ aside .nav-link.active, aside .nav-link:hover {
   background-color: #1b203f;
   color: #ffffff;
 }
-body footer {
+
+body .page-footer {
 	background-color: #070c29;
 	border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
@@ -73,4 +74,10 @@ body footer {
   right: 0;
   bottom: 0;
   transition: ease-out 0.3s;
+}
+
+.dropdown-menu{
+  background: #0f1535;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
 }
