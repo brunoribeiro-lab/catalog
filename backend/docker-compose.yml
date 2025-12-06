@@ -18,6 +18,10 @@ services:
     networks:
       - laravel
     depends_on:
+      - redis
+      - postgres
+      - cassandra
+      - elasticsearch
       - php-fpm
     restart: always
 
@@ -33,9 +37,6 @@ services:
       - "9000"
     volumes:
       - .:/var/www/html:delegated
-    depends_on:
-      - redis
-      - postgres
     networks:
       - laravel
     restart: always
@@ -66,6 +67,32 @@ services:
       POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - laravel
+
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - "${CASSANDRA_PORT:-9042}:9042"
+    volumes:
+      - ./data/cassandra:/var/lib/cassandra
+      - ./database/cassandra/init.cql:/docker-entrypoint-initdb.d/init.cql
+    environment:
+      - CASSANDRA_AUTHENTICATOR=AllowAllAuthenticator
+      - CASSANDRA_AUTHORIZER=AllowAllAuthorizer
+      - CASSANDRA_ROLE_MANAGER=org.apache.cassandra.auth.AllowAllRoleManager
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    networks:
+      - laravel
+
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
     networks:
       - laravel
 
