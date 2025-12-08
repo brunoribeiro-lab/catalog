@@ -1,6 +1,8 @@
 {
   "common": {
-    "welcome": "Vindo Vindo ao Devobs"
+    "welcome": "Vindo Vindo ao Devobs",
+    "loading": "Carregando...",
+    "user": "Usuário"
   },
   "login": {
     "getStarted": "Comece Agora",
@@ -23,7 +25,9 @@
     "alerts": "Alertas",
     "users": "Usuários",
     "settings": "Configurações",
-    "docs": "Documentação"
+    "docs": "Documentação",
+    "profile": "Perfil",
+    "logout": "Sair"
   },
   "errors": {
     "emailRequired": "Email é obrigatório",

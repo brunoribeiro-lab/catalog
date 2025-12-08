@@ -1,7 +1,7 @@
 "use client";
 
 import Cookies from "js-cookie";
-import { securePack } from "@/utils/crypto";
+import { base64DecodeUnicode, securePack, secureUnpack } from "@/utils/crypto";
 import { AuthUserCookie } from "@/types/authUserCookie";
 
 export function extractUserInfo(data: Record<string, unknown>): AuthUserCookie {
@@ -43,4 +43,33 @@ export async function setAuthCookies(params: {
   const secret = process.env.NEXT_PUBLIC_COOKIE_SECRET || "";
   const userPayload = await securePack(user, secret);
   Cookies.set("user", userPayload, opts);
+}
+
+export async function getAuthUser(): Promise<AuthUserCookie | null> {
+  try {
+    const raw = Cookies.get("user");
+    if (!raw) return null;
+
+    const secret = process.env.NEXT_PUBLIC_COOKIE_SECRET || "";
+    let payload: unknown;
+
+    if (raw.startsWith("enc:")) {
+      payload = await secureUnpack(raw, secret);
+    } else if (raw.startsWith("b64:")) {
+      payload = await secureUnpack(raw, secret);
+    } else {
+      try {
+        payload = JSON.parse(raw);
+      } catch {
+        const maybeJson = base64DecodeUnicode(raw);
+        payload = JSON.parse(maybeJson);
+      }
+    }
+
+    if (typeof payload !== "object" || payload === null) return null;
+    return extractUserInfo(payload as Record<string, unknown>);
+  } catch (err) {
+    console.error("Error extract user info", err);
+    return null;
+  }
 }

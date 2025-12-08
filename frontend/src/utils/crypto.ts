@@ -6,6 +6,9 @@ export const hasWebCrypto =
 const textEncoder =
   typeof TextEncoder !== "undefined" ? new TextEncoder() : undefined;
 
+const textDecoder =
+  typeof TextDecoder !== "undefined" ? new TextDecoder() : undefined;
+
 async function deriveAesKey(secret: string): Promise<CryptoKey> {
   if (!hasWebCrypto || !textEncoder) throw new Error("WebCrypto indisponível");
   const material = textEncoder.encode(secret);
@@ -15,7 +18,7 @@ async function deriveAesKey(secret: string): Promise<CryptoKey> {
     hash,
     { name: "AES-GCM" },
     false,
-    ["encrypt"]
+    ["encrypt", "decrypt"]
   );
 }
 
@@ -26,8 +29,27 @@ function bytesToBase64(bytes: Uint8Array): string {
   return btoa(binary);
 }
 
+function base64ToBytes(b64: string): Uint8Array {
+  const binary = atob(b64);
+  const len = binary.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
 export function base64EncodeUnicode(str: string): string {
   return btoa(unescape(encodeURIComponent(str)));
+}
+
+export function base64DecodeUnicode(b64: string): string {
+  const bytes = base64ToBytes(b64);
+  if (!textDecoder) {
+    let binary = "";
+    for (let i = 0; i < bytes.length; i++)
+      binary += String.fromCharCode(bytes[i]);
+    return decodeURIComponent(escape(binary));
+  }
+  return textDecoder.decode(bytes);
 }
 
 export async function securePack(
@@ -51,4 +73,39 @@ export async function securePack(
     return `enc:${bytesToBase64(packed)}`;
   }
   return `b64:${base64EncodeUnicode(JSON.stringify(obj))}`;
+}
+
+
+export async function secureUnpack(
+  payload: string,
+  secret: string
+): Promise<unknown> {
+  if (payload.startsWith("enc:")) {
+    if (!secret)
+      throw new Error("Secret necessário para decodificar payload encriptado");
+    if (!hasWebCrypto || !textDecoder)
+      throw new Error("WebCrypto/Decoder indisponível");
+    const packed = base64ToBytes(payload.slice(4));
+    const iv = packed.slice(0, 12);
+    const ciphertext = packed.slice(12);
+    const key = await deriveAesKey(secret);
+    const plainBuffer = await window.crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      ciphertext
+    );
+    const text = textDecoder.decode(new Uint8Array(plainBuffer));
+    return JSON.parse(text);
+  }
+
+  if (payload.startsWith("b64:")) {
+    const json = base64DecodeUnicode(payload.slice(4));
+    return JSON.parse(json);
+  }
+
+  try {
+    return JSON.parse(payload);
+  } catch {
+    throw new Error("unknown payload format");
+  }
 }

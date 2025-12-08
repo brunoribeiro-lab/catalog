@@ -1,6 +1,8 @@
 {
   "common": {
-    "welcome": "welcome to Devobs"
+    "welcome": "welcome to Devobs",
+    "loading": "Loading...",
+    "user": "User"
   },
   "login": {
     "getStarted": "Get Started Now",
@@ -23,7 +25,9 @@
     "alerts": "Alerts",
     "users": "Users",
     "settings": "Settings",
-    "docs": "Documentation"
+    "docs": "Documentation",
+    "profile": "Profile",
+    "logout": "Logout"
   },
   "errors": {
     "emailRequired": "Email is required",
