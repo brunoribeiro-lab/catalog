@@ -16,6 +16,15 @@
     "signUpHere": "Inscreva-se aqui",
     "orSignInWith": "OU ENTRE COM"
   },
+  "menu": {
+    "dashboard": "Painel",
+    "logs": "Logs",
+    "cloud": "Servidores",
+    "alerts": "Alertas",
+    "users": "Usuários",
+    "settings": "Configurações",
+    "docs": "Documentação"
+  },
   "errors": {
     "emailRequired": "Email é obrigatório",
     "invalidEmail": "Email inválido",

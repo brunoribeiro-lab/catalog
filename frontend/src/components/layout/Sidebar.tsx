@@ -7,6 +7,7 @@ import { ICON_MAP, MENU } from "@/constants/menu";
 import {
   Box
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function Icon({
   name,
@@ -24,6 +25,7 @@ function Icon({
 
 export default function Sidebar() {
   const pathname = usePathname() || "/";
+  const t = useTranslations();
 
   const isActive = (href?: string) => {
     if (!href) return false;
@@ -64,7 +66,7 @@ export default function Sidebar() {
                   <span className="w-5 flex-shrink-0 flex items-center justify-center">
                     <Icon name={item.icon} />
                   </span>
-                  <span className="flex-1 truncate text-lg">{item.title}</span>
+                  <span className="flex-1 truncate text-lg">{t(`menu.${item.id}`)}</span>
                 </Link>
               </li>
             );
